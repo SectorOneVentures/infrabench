@@ -53,7 +53,7 @@ def main() -> None:
 
     res = compute_vram_gb(params_b=args.params, quant_bits=args.quant, ctx_len=args.ctx, batch_size=args.batch)
     data = load_benchmarks()
-    vast_link = data.get("referral_links", {}).get("vast_ai", "https://cloud.vast.ai/?ref_id=infrabench")
+    vast_link = data.get("referral_links", {}).get("vast_ai", "https://cloud.vast.ai/?ref_id=749467")
 
     print(f"=== InfraBench VRAM Footprint ({args.params:.0f}B @ {args.quant}-bit, {args.ctx} ctx, batch={args.batch}) ===")
     print(
