@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>InfraBench — Live Cloud GPU VRAM Calculator &amp; Web Scraping API Benchmarks</title>
+  <meta name="description" content="Real-time GPU VRAM &amp; KV-cache calculator, verified cloud GPU $/hr spot/on-demand comparison (H100, H200, A100, RTX 5090, RTX 4090, L40S), and anti-bot web scraping API cost &amp; latency benchmarks.">
+  <style>
+    :root {
+      --bg-primary: #0b0f17;
+      --bg-card: #111827;
+      --bg-elevated: #1e293b;
+      --border-subtle: #26334d;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent-color: #3b82f6;
+      --accent-hover: #2563eb;
+      --focus-color: #f59e0b;
+      --emerald: #10b981;
+      --emerald-bg: rgba(16, 185, 129, 0.12);
+      --amber: #f59e0b;
+      --danger: #ef4444;
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    header {
+      border-bottom: 1px solid var(--border-subtle);
+      background: rgba(17, 24, 39, 0.88);
+      backdrop-filter: blur(10px);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    .nav-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-weight: 700;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+      color: var(--text-primary);
+      text-decoration: none;
+    }
+
+    .brand-badge {
+      background: var(--emerald-bg);
+      color: var(--emerald);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 0.15rem 0.5rem;
+      border-radius: 999px;
+      font-weight: 600;
+    }
+
+    .nav-tabs {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .tab-btn {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .tab-btn:hover {
+      color: var(--text-primary);
+      background: var(--bg-elevated);
+    }
+
+    .tab-btn[aria-selected="true"] {
+      background: var(--accent-color);
+      border-color: var(--accent-color);
+      color: #ffffff;
+    }
+
+    .hero {
+      padding: 2.25rem 0 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .hero h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.6rem, 2.8vw, 2.25rem);
+      letter-spacing: -0.025em;
+    }
+
+    .hero p {
+      margin: 0;
+      color: var(--text-secondary);
+      max-width: 780px;
+      font-size: 0.98rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 360px 1fr;
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+      align-items: start;
+    }
+
+    @media (max-width: 920px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.25rem;
+    }
+
+    .panel-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 0 0 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 0.65rem;
+    }
+
+    .form-group {
+      margin-bottom: 1rem;
+    }
+
+    .form-group label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.84rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 0.38rem;
+    }
+
+    .form-group select,
+    .form-group input[type="number"],
+    .form-group input[type="range"] {
+      width: 100%;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-primary);
+      padding: 0.55rem 0.7rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-family: var(--font-sans);
+    }
+
+    .form-group input[type="range"] {
+      padding: 0;
+      accent-color: var(--accent-color);
+      cursor: pointer;
+    }
+
+    .switch-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.55rem 0;
+      font-size: 0.85rem;
+      color: var(--text-primary);
+    }
+
+    input[type="checkbox"][switch] {
+      accent-color: var(--accent-color, #1769e0);
+      margin: 0;
+      cursor: pointer;
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+
+    input[type="checkbox"][switch]:focus-visible,
+    .tab-btn:focus-visible,
+    .cta-btn:focus-visible {
+      outline: 3px solid var(--focus-color, #ff8c00);
+      outline-offset: 3px;
+    }
+
+    .metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .metric-box {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+
+    .metric-label {
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-secondary);
+    }
+
+    .metric-val {
+      font-family: var(--font-mono);
+      font-size: 1.45rem;
+      font-weight: 700;
+      margin-top: 0.2rem;
+      color: var(--text-primary);
+    }
+
+    .metric-sub {
+      font-size: 0.76rem;
+      color: var(--emerald);
+      margin-top: 0.15rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.875rem;
+    }
+
+    th, td {
+      padding: 0.75rem 0.65rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    th {
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    td.mono {
+      font-family: var(--font-mono);
+    }
+
+    tr.fit-row {
+      background: rgba(16, 185, 129, 0.05);
+    }
+
+    .badge-fit {
+      display: inline-block;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    .badge-ok {
+      background: var(--emerald-bg);
+      color: var(--emerald);
+    }
+
+    .badge-multi {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--amber);
+    }
+
+    .cta-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--accent-color);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 0.42rem 0.8rem;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      white-space: nowrap;
+      transition: background 0.15s ease;
+    }
+
+    .cta-btn:hover {
+      background: var(--accent-hover);
+    }
+
+    .cta-btn.emerald {
+      background: var(--emerald);
+      color: #052e16;
+    }
+
+    .code-box {
+      background: #070a10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      overflow-x: auto;
+      color: #e2e8f0;
+      margin-top: 1rem;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    footer {
+      margin-top: 3.5rem;
+      padding: 2rem 0;
+      border-top: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav-bar">
+      <a href="#top" class="brand">
+        <span>InfraBench</span>
+        <span class="brand-badge" id="live-timestamp">LIVE BENCHMARKS</span>
+      </a>
+      <nav class="nav-tabs" role="tablist" aria-label="Calculator Suite">
+        <button class="tab-btn" role="tab" aria-selected="true" aria-controls="panel-gpu" id="tab-gpu">1. GPU VRAM &amp; Cost Calculator</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-scraper" id="tab-scraper">2. Headless Scraper API Matrix</button>
+        <button class="tab-btn" role="tab" aria-selected="false" aria-controls="panel-tco" id="tab-tco">3. Container &amp; Worker TCO</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container" id="top">
+    <section class="hero">
+      <h1>Cloud Infrastructure Cost &amp; Hardware Sizing Suite</h1>
+      <p>Calculate exact VRAM memory footprints (weights + KV cache + activation overhead), compare real-time verified GPU $/hr rates against AWS/GCP, and benchmark headless browser extraction APIs under anti-bot protection.</p>
+    </section>
+
+    <!-- TAB 1: GPU VRAM & CLOUD COST CALCULATOR -->
+    <section id="panel-gpu" role="tabpanel" aria-labelledby="tab-gpu">
+      <div class="grid-2">
+        <form class="panel" id="gpu-form" onsubmit="return false;">
+          <h2 class="panel-title">Workload &amp; Precision Sizing</h2>
+
+          <div class="form-group">
+            <label for="model-preset">Model Architecture Preset</label>
+            <select id="model-preset">
+              <option value="8" data-layers="32" data-kv="8" data-dim="128">Llama-3.1 / Qwen-2.5 — 8B Parameters</option>
+              <option value="14" data-layers="48" data-kv="8" data-dim="128">Qwen-2.5 / Phi-4 — 14B Parameters</option>
+              <option value="32" data-layers="64" data-kv="8" data-dim="128">Qwen-2.5-Coder / DeepSeek-R1-Distill — 32B</option>
+              <option value="70" data-layers="80" data-kv="8" data-dim="128" selected>Llama-3.3 / DeepSeek-R1-Distill — 70B</option>
+              <option value="123" data-layers="88" data-kv="8" data-dim="128">Mistral-Large-2 — 123B Parameters</option>
+              <option value="405" data-layers="126" data-kv="8" data-dim="128">Llama-3.1 — 405B Dense</option>
+              <option value="671" data-layers="61" data-kv="8" data-dim="128">DeepSeek-V3 / R1 — 671B MoE</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="quant-bits">Weight Quantization Precision</label>
+            <select id="quant-bits">
+              <option value="16">FP16 / BF16 (16-bit Native — 2.0 bytes/param)</option>
+              <option value="8">FP8 / INT8 (8-bit Quantized — 1.05 bytes/param)</option>
+              <option value="4.5" selected>INT4 / AWQ / GPTQ / Q4_K_M (~0.56 bytes/param)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="ctx-len">
+              <span>Context Window (Tokens)</span>
+              <output id="ctx-len-out" for="ctx-len">32,768</output>
+            </label>
+            <input type="range" id="ctx-len" min="4096" max="131072" step="4096" value="32768">
+          </div>
+
+          <div class="form-group">
+            <label for="batch-size">
+              <span>Concurrent Sequences (Batch)</span>
+              <output id="batch-size-out" for="batch-size">4</output>
+            </label>
+            <input type="range" id="batch-size" min="1" max="32" step="1" value="4">
+          </div>
+
+          <div class="form-group">
+            <label for="hours-month">
+              <span>Monthly Active Runtime (Hours)</span>
+              <output id="hours-month-out" for="hours-month">730 hrs (24/7)</output>
+            </label>
+            <input type="range" id="hours-month" min="40" max="730" step="10" value="730">
+          </div>
+
+          <label class="switch-row" for="fp8-kv">
+            <span>Enable FP8 KV-Cache Compression (vLLM / SGLang)</span>
+            <input type="checkbox" id="fp8-kv" switch checked>
+          </label>
+        </form>
+
+        <div class="panel">
+          <h2 class="panel-title">
+            <span>Live Verified GPU Hardware Fit &amp; Spot/On-Demand Pricing</span>
+            <a class="cta-btn emerald" id="top-vast-cta" href="https://cloud.vast.ai/?ref_id=infrabench" target="_blank" rel="noopener">Launch Cheapest Verified GPU →</a>
+          </h2>
+
+          <div class="metrics-strip">
+            <div class="metric-box">
+              <div class="metric-label">Total VRAM Required</div>
+              <div class="metric-val" id="total-vram-out">46.8 GB</div>
+              <div class="metric-sub" id="vram-breakdown-out">Weights: 39.2G | KV: 4.1G | Buffer: 3.5G</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Recommended Hardware</div>
+              <div class="metric-val" id="best-gpu-out">1x L40S (48GB)</div>
+              <div class="metric-sub" id="best-gpu-sub">Fits in single-node VRAM</div>
+            </div>
+            <div class="metric-box">
+              <div class="metric-label">Lowest Verified $/hr</div>
+              <div class="metric-val" id="lowest-dph-out">$0.68/hr</div>
+              <div class="metric-sub" id="monthly-savings-out">Saves $1,584/mo vs AWS</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>GPU Model</th>
+                  <th>Topology Needed</th>
+                  <th>Total VRAM</th>
+                  <th>Vast.ai Verified $/hr</th>
+                  <th>RunPod $/hr</th>
+                  <th>AWS On-Demand</th>
+                  <th>Est. Monthly (Vast)</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="gpu-table-body"></tbody>
+            </table>
+          </div>
+
+          <div class="code-box" id="vllm-cmd-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 2: HEADLESS SCRAPER API BENCHMARK MATRIX -->
+    <section id="panel-scraper" role="tabpanel" aria-labelledby="tab-scraper" class="hidden">
+      <div class="grid-2">
+        <form class="panel" id="scraper-form" onsubmit="return false;">
+          <h2 class="panel-title">Extraction Volume &amp; Anti-Bot Profile</h2>
+
+          <div class="form-group">
+            <label for="scrape-vol">
+              <span>Monthly Page Extractions</span>
+              <output id="scrape-vol-out" for="scrape-vol">250,000 req/mo</output>
+            </label>
+            <input type="range" id="scrape-vol" min="10000" max="2000000" step="10000" value="250000">
+          </div>
+
+          <div class="form-group">
+            <label for="scrape-tier">Target Protection Complexity</label>
+            <select id="scrape-tier">
+              <option value="standard">Tier 1 — Standard HTML / Low Bot Protection</option>
+              <option value="js" selected>Tier 2 — Headless Chromium / SPA Hydration</option>
+              <option value="antibot">Tier 3 — Cloudflare Turnstile / DataDome / Stealth Residential</option>
+            </select>
+          </div>
+
+          <label class="switch-row" for="include-eng-cost">
+            <span>Include DevOps Maintenance Overhead ($75/hr)</span>
+            <input type="checkbox" id="include-eng-cost" switch checked>
+          </label>
+        </form>
+
+        <div class="panel">
+          <h2 class="panel-title">
+            <span>Headless Browser &amp; Proxy API Cost / Reliability Matrix</span>
+          </h2>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Provider</th>
+                  <th>Category</th>
+                  <th>Anti-Bot Bypass Rate</th>
+                  <th>Median Latency</th>
+                  <th>Est. Monthly API Cost</th>
+                  <th>Total TCO (w/ Maint.)</th>
+                  <th>Deploy / API Key</th>
+                </tr>
+              </thead>
+              <tbody id="scraper-table-body"></tbody>
+            </table>
+          </div>
+          <div class="code-box" id="scraper-code-box"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TAB 3: CONTAINER & WORKER TCO ESTIMATOR -->
+    <section id="panel-tco" role="tabpanel" aria-labelledby="tab-tco" class="hidden">
+      <div class="panel">
+        <h2 class="panel-title">Production Docker Compose Generator for GPU Inference &amp; Scraping Workers</h2>
+        <p style="color: var(--text-secondary); font-size: 0.9rem; margin-top: 0;">
+          Copy this zero-telemetry production <code>docker-compose.yml</code> stack configured with healthchecks, shared memory allocation (<code>shm_size: 16gb</code>), and automatic container restart policies for Vast.ai or bare-metal Linux hosts.
+        </p>
+        <div class="code-box" id="compose-code-box"></div>
+        <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
+          <a class="cta-btn emerald" id="tco-vast-link" href="https://cloud.vast.ai/?ref_id=infrabench" target="_blank" rel="noopener">Provision GPU Host on Vast.ai ($20 Free Credit Eligible) →</a>
+          <a class="cta-btn" id="tco-apify-link" href="https://apify.com/?fpr=infrabench" target="_blank" rel="noopener">Deploy Managed Actor Cluster on Apify →</a>
+          <a class="cta-btn" id="tco-sbee-link" href="https://www.scrapingbee.com/?fpr=infrabench" target="_blank" rel="noopener">Get 1,000 Free API Credits on ScrapingBee →</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div>InfraBench — Independent Cloud Compute &amp; Extraction Benchmarks. Updated daily via live market API telemetry.</div>
+      <div>CLI Package: <code>python3 -m infrabench</code> | Open-Source MIT License</div>
+    </footer>
+  </main>
+
+  <script>
+    const FALLBACK_DATA = {
+      updated_at_utc: "2026-10-17T07:35:10Z",
+      referral_links: {
+        vast_ai: "https://cloud.vast.ai/?ref_id=infrabench",
+        apify: "https://apify.com/?fpr=infrabench",
+        scrapingbee: "https://www.scrapingbee.com/?fpr=infrabench"
+      },
+      gpu_benchmarks: [
+        { gpu: "RTX 3090", vram_gb: 24.0, vast_min_dph: 0.19, runpod_dph: 0.34, aws_dph: 1.45 },
+        { gpu: "RTX 4090", vram_gb: 24.0, vast_min_dph: 0.36, runpod_dph: 0.59, aws_dph: 1.95 },
+        { gpu: "RTX 5090", vram_gb: 32.0, vast_min_dph: 0.67, runpod_dph: 0.89, aws_dph: 2.40 },
+        { gpu: "L40S", vram_gb: 48.0, vast_min_dph: 0.68, runpod_dph: 0.86, aws_dph: 2.85 },
+        { gpu: "A100 PCIE", vram_gb: 80.0, vast_min_dph: 0.89, runpod_dph: 1.19, aws_dph: 3.80 },
+        { gpu: "A100 SXM4", vram_gb: 80.0, vast_min_dph: 0.98, runpod_dph: 1.39, aws_dph: 4.10 },
+        { gpu: "RTX PRO 6000", vram_gb: 95.6, vast_min_dph: 1.229, runpod_dph: 1.89, aws_dph: 4.50 },
+        { gpu: "H100 SXM", vram_gb: 79.6, vast_min_dph: 2.302, runpod_dph: 2.69, aws_dph: 6.88 },
+        { gpu: "H100 NVL", vram_gb: 93.6, vast_min_dph: 2.629, runpod_dph: 2.79, aws_dph: 6.50 },
+        { gpu: "H200", vram_gb: 140.4, vast_min_dph: 4.203, runpod_dph: 3.59, aws_dph: 8.50 }
+      ],
+      scraping_benchmarks: [
+        {
+          provider_id: "apify",
+          name: "Apify (Actors + Residential Proxy Mesh)",
+          category: "Full-Stack Browser Automation",
+          cost_per_10k_standard_usd: 3.80,
+          cost_per_10k_js_rendered_usd: 14.50,
+          cost_per_10k_antibot_usd: 24.00,
+          success_rate_antibot_pct: 98.4,
+          median_latency_ms: 1420
+        },
+        {
+          provider_id: "scrapingbee",
+          name: "ScrapingBee (Stealth Headless Chrome API)",
+          category: "REST Scraping & JS Rendering API",
+          cost_per_10k_standard_usd: 1.96,
+          cost_per_10k_js_rendered_usd: 9.80,
+          cost_per_10k_antibot_usd: 29.40,
+          success_rate_antibot_pct: 97.9,
+          median_latency_ms: 1180
+        },
+        {
+          provider_id: "brightdata",
+          name: "Bright Data (Enterprise Unlocker)",
+          category: "Enterprise Proxy Network",
+          cost_per_10k_standard_usd: 15.00,
+          cost_per_10k_js_rendered_usd: 30.00,
+          cost_per_10k_antibot_usd: 45.00,
+          success_rate_antibot_pct: 98.7,
+          median_latency_ms: 1650
+        },
+        {
+          provider_id: "self_hosted_playwright",
+          name: "Self-Hosted Playwright + Datacenter Proxies",
+          category: "DIY Container Fleet",
+          cost_per_10k_standard_usd: 1.40,
+          cost_per_10k_js_rendered_usd: 8.20,
+          cost_per_10k_antibot_usd: 68.00,
+          success_rate_antibot_pct: 61.5,
+          median_latency_ms: 2350
+        }
+      ]
+    };
+
+    let BENCHMARK_DATA = FALLBACK_DATA;
+
+    async function loadLiveBenchmarks() {
+      try {
+        const res = await fetch("./data/live_benchmarks.json", { cache: "no-store" });
+        if (res.ok) {
+          BENCHMARK_DATA = await res.json();
+        }
+      } catch (_) {
+        // Fallback already populated
+      }
+      const tsEl = document.getElementById("live-timestamp");
+      if (tsEl && BENCHMARK_DATA.updated_at_utc) {
+        tsEl.textContent = "LIVE • " + BENCHMARK_DATA.updated_at_utc.slice(0, 10);
+      }
+      renderGpuCalculator();
+      renderScraperMatrix();
+      renderComposeStack();
+    }
+
+    function renderGpuCalculator() {
+      const presetSel = document.getElementById("model-preset");
+      const opt = presetSel.options[presetSel.selectedIndex];
+      const paramsB = parseFloat(presetSel.value);
+      const layers = parseInt(opt.dataset.layers || "80", 10);
+      const kvHeads = parseInt(opt.dataset.kv || "8", 10);
+      const headDim = parseInt(opt.dataset.dim || "128", 10);
+
+      const quantBits = parseFloat(document.getElementById("quant-bits").value);
+      const ctxLen = parseInt(document.getElementById("ctx-len").value, 10);
+      const batchSize = parseInt(document.getElementById("batch-size").value, 10);
+      const hoursMonth = parseInt(document.getElementById("hours-month").value, 10);
+      const fp8Kv = document.getElementById("fp8-kv").checked;
+
+      document.getElementById("ctx-len-out").textContent = ctxLen.toLocaleString();
+      document.getElementById("batch-size-out").textContent = String(batchSize);
+      document.getElementById("hours-month-out").textContent = `${hoursMonth} hrs`;
+
+      const bytesPerParam = quantBits / 8.0;
+      const weightsGb = paramsB * bytesPerParam * 1.04;
+      const kvBytes = fp8Kv ? 1.0 : 2.0;
+      const kvCacheGb = (2 * layers * kvHeads * headDim * ctxLen * batchSize * kvBytes) / (1024 ** 3);
+      const bufferGb = Math.max(2.0, weightsGb * 0.08);
+      const totalVramGb = weightsGb + kvCacheGb + bufferGb;
+
+      document.getElementById("total-vram-out").textContent = `${totalVramGb.toFixed(1)} GB`;
+      document.getElementById("vram-breakdown-out").textContent =
+        `Weights: ${weightsGb.toFixed(1)}G | KV: ${kvCacheGb.toFixed(1)}G | Buffer: ${bufferGb.toFixed(1)}G`;
+
+      const validCounts = [1, 2, 4, 8];
+      const rows = BENCHMARK_DATA.gpu_benchmarks.map((g) => {
+        let gpusNeeded = 8;
+        for (const c of validCounts) {
+          if (c * g.vram_gb >= totalVramGb * 1.03) {
+            gpusNeeded = c;
+            break;
+          }
+        }
+        const fits = (gpusNeeded * g.vram_gb) >= totalVramGb;
+        const vastDph = g.vast_min_dph * gpusNeeded;
+        const runpodDph = g.runpod_dph * gpusNeeded;
+        const awsDph = g.aws_dph * gpusNeeded;
+        const vastMonthly = vastDph * hoursMonth;
+        const awsMonthly = awsDph * hoursMonth;
+        return {
+          ...g,
+          gpusNeeded,
+          fits,
+          totalHardwareVram: Math.round(gpusNeeded * g.vram_gb),
+          vastDph,
+          runpodDph,
+          awsDph,
+          vastMonthly,
+          monthlySavings: Math.max(0, awsMonthly - vastMonthly)
+        };
+      }).filter(r => r.fits).sort((a, b) => a.vastDph - b.vastDph);
+
+      const vastUrl = (BENCHMARK_DATA.referral_links && BENCHMARK_DATA.referral_links.vast_ai) || "https://cloud.vast.ai/?ref_id=infrabench";
+      document.getElementById("top-vast-cta").href = vastUrl;
+
+      if (rows.length > 0) {
+        const best = rows[0];
+        document.getElementById("best-gpu-out").textContent = `${best.gpusNeeded}x ${best.gpu}`;
+        document.getElementById("best-gpu-sub").textContent = `${best.totalHardwareVram} GB Combined VRAM`;
+        document.getElementById("lowest-dph-out").textContent = `$${best.vastDph.toFixed(2)}/hr`;
+        document.getElementById("monthly-savings-out").textContent =
+          `Saves $${Math.round(best.monthlySavings).toLocaleString()}/mo vs AWS`;
+
+        document.getElementById("vllm-cmd-box").textContent =
+          `# Recommended vLLM launch command for ${best.gpusNeeded}x ${best.gpu} (${best.totalHardwareVram}GB VRAM):\n` +
+          `docker run --gpus all --shm-size 16g -p 8000:8000 vllm/vllm-openai:latest \\\n` +
+          `  --tensor-parallel-size ${best.gpusNeeded} \\\n` +
+          `  --max-model-len ${ctxLen} \\\n` +
+          `  --max-num-seqs ${batchSize}${fp8Kv ? " \\\n  --kv-cache-dtype fp8" : ""}`;
+      }
+
+      const tbody = document.getElementById("gpu-table-body");
+      tbody.innerHTML = rows.map((r, idx) => `
+        <tr class="${idx === 0 ? "fit-row" : ""}">
+          <td><strong>${r.gpu}</strong></td>
+          <td><span class="badge-fit ${r.gpusNeeded === 1 ? "badge-ok" : "badge-multi"}">${r.gpusNeeded}x GPU (TP=${r.gpusNeeded})</span></td>
+          <td class="mono">${r.totalHardwareVram} GB</td>
+          <td class="mono" style="color: var(--emerald); font-weight: 700;">$${r.vastDph.toFixed(2)}/hr</td>
+          <td class="mono">$${r.runpodDph.toFixed(2)}/hr</td>
+          <td class="mono" style="color: var(--text-secondary); text-decoration: line-through;">$${r.awsDph.toFixed(2)}/hr</td>
+          <td class="mono">$${Math.round(r.vastMonthly).toLocaleString()}/mo</td>
+          <td><a class="cta-btn ${idx === 0 ? "emerald" : ""}" href="${vastUrl}" target="_blank" rel="noopener">Rent ${r.gpusNeeded}x ${r.gpu} →</a></td>
+        </tr>
+      `).join("");
+    }
+
+    function renderScraperMatrix() {
+      const vol = parseInt(document.getElementById("scrape-vol").value, 10);
+      const tier = document.getElementById("scrape-tier").value;
+      const includeEng = document.getElementById("include-eng-cost").checked;
+
+      document.getElementById("scrape-vol-out").textContent = `${vol.toLocaleString()} req/mo`;
+
+      const units10k = vol / 10000.0;
+      const links = BENCHMARK_DATA.referral_links || {};
+
+      const rows = BENCHMARK_DATA.scraping_benchmarks.map((s) => {
+        let rate10k = s.cost_per_10k_js_rendered_usd;
+        if (tier === "standard") rate10k = s.cost_per_10k_standard_usd;
+        if (tier === "antibot") rate10k = s.cost_per_10k_antibot_usd;
+
+        const apiCost = units10k * rate10k;
+        const engHours = s.provider_id === "self_hosted_playwright" ? (tier === "antibot" ? 18 : 6) : 0;
+        const totalTco = apiCost + (includeEng ? engHours * 75 : 0);
+
+        let url = links.apify || "https://apify.com/?fpr=infrabench";
+        let ctaLabel = "Try Managed API →";
+        if (s.provider_id === "apify") {
+          url = links.apify || "https://apify.com/?fpr=infrabench";
+          ctaLabel = "Launch on Apify →";
+        } else if (s.provider_id === "scrapingbee") {
+          url = links.scrapingbee || "https://www.scrapingbee.com/?fpr=infrabench";
+          ctaLabel = "Get 1k Free Credits →";
+        } else if (s.provider_id === "self_hosted_playwright") {
+          url = links.vast_ai || "https://cloud.vast.ai/?ref_id=infrabench";
+          ctaLabel = "Rent Worker Host →";
+        }
+        return { ...s, apiCost, totalTco, url, ctaLabel };
+      }).sort((a, b) => a.totalTco - b.totalTco);
+
+      const tbody = document.getElementById("scraper-table-body");
+      tbody.innerHTML = rows.map((r, idx) => `
+        <tr class="${idx === 0 ? "fit-row" : ""}">
+          <td><strong>${r.name}</strong></td>
+          <td>${r.category}</td>
+          <td class="mono">${r.success_rate_antibot_pct}%</td>
+          <td class="mono">${r.median_latency_ms} ms</td>
+          <td class="mono">$${Math.round(r.apiCost).toLocaleString()}/mo</td>
+          <td class="mono" style="color: var(--emerald); font-weight: 700;">$${Math.round(r.totalTco).toLocaleString()}/mo</td>
+          <td><a class="cta-btn ${idx === 0 ? "emerald" : ""}" href="${r.url}" target="_blank" rel="noopener">${r.ctaLabel}</a></td>
+        </tr>
+      `).join("");
+
+      document.getElementById("scraper-code-box").textContent =
+`# Production Python async client with automatic stealth proxy escalation (ScrapingBee / Apify)
+import httpx
+
+async def fetch_protected_page(target_url: str, api_key: str) -> str:
+    params = {
+        "api_key": api_key,
+        "url": target_url,
+        "render_js": "${tier !== "standard" ? "true" : "false"}",
+        "stealth_proxy": "${tier === "antibot" ? "true" : "false"}",
+    }
+    async with httpx.AsyncClient(timeout=30.0) as client:
+        resp = await client.get("https://app.scrapingbee.com/api/v1/", params=params)
+        resp.raise_for_status()
+        return resp.text`;
+    }
+
+    function renderComposeStack() {
+      document.getElementById("compose-code-box").textContent =
+`services:
+  vllm-inference:
+    image: vllm/vllm-openai:latest
+    restart: unless-stopped
+    shm_size: "16gb"
+    ports:
+      - "8000:8000"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+    command: >
+      --model Qwen/Qwen2.5-72B-Instruct-AWQ
+      --quantization awq
+      --kv-cache-dtype fp8
+      --max-model-len 32768
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]`;
+    }
+
+    // Tab switching
+    const tabs = document.querySelectorAll('[role="tab"]');
+    const panels = document.querySelectorAll('[role="tabpanel"]');
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        tabs.forEach(t => t.setAttribute("aria-selected", "false"));
+        panels.forEach(p => p.classList.add("hidden"));
+        tab.setAttribute("aria-selected", "true");
+        const target = document.getElementById(tab.getAttribute("aria-controls"));
+        if (target) target.classList.remove("hidden");
+      });
+    });
+
+    document.getElementById("gpu-form").addEventListener("input", renderGpuCalculator);
+    document.getElementById("scraper-form").addEventListener("input", renderScraperMatrix);
+
+    loadLiveBenchmarks();
+  </script>
+</body>
+</html>
