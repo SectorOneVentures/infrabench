@@ -1,5 +1,5 @@
 {
-  "updated_at_utc": "2026-10-17T12:00:21Z",
+  "updated_at_utc": "2026-10-17T12:01:23Z",
   "gpu_benchmarks": [
     {
       "gpu": "H100 SXM",
@@ -35,7 +35,7 @@
       "fp16_tflops": 989.0,
       "mem_bw_gbs": 4800,
       "vast_min_dph": 4.001,
-      "vast_median_dph": 4.336,
+      "vast_median_dph": 4.203,
       "runpod_dph": 3.59,
       "lambda_dph": 3.79,
       "gcp_dph": 7.8,
@@ -48,28 +48,28 @@
       "vram_gb": 80.0,
       "fp16_tflops": 312.0,
       "mem_bw_gbs": 2039,
-      "vast_min_dph": 1.054,
+      "vast_min_dph": 1.055,
       "vast_median_dph": 1.056,
       "runpod_dph": 1.39,
       "lambda_dph": 1.79,
       "gcp_dph": 3.67,
       "aws_dph": 4.1,
       "savings_vs_aws_pct": 74.3,
-      "verified_nodes_sampled": 4
+      "verified_nodes_sampled": 3
     },
     {
       "gpu": "A100 PCIE",
       "vram_gb": 40.0,
       "fp16_tflops": 312.0,
       "mem_bw_gbs": 1935,
-      "vast_min_dph": 0.508,
-      "vast_median_dph": 0.735,
+      "vast_min_dph": 0.657,
+      "vast_median_dph": 1.073,
       "runpod_dph": 1.19,
       "lambda_dph": 1.49,
       "gcp_dph": 3.4,
       "aws_dph": 3.8,
-      "savings_vs_aws_pct": 86.6,
-      "verified_nodes_sampled": 4
+      "savings_vs_aws_pct": 82.7,
+      "verified_nodes_sampled": 2
     },
     {
       "gpu": "RTX PRO 6000",
@@ -77,13 +77,13 @@
       "fp16_tflops": 290.0,
       "mem_bw_gbs": 1792,
       "vast_min_dph": 1.321,
-      "vast_median_dph": 1.607,
+      "vast_median_dph": 1.587,
       "runpod_dph": 1.89,
       "lambda_dph": 1.99,
       "gcp_dph": 4.1,
       "aws_dph": 4.5,
       "savings_vs_aws_pct": 70.6,
-      "verified_nodes_sampled": 7
+      "verified_nodes_sampled": 8
     },
     {
       "gpu": "L40S",
@@ -104,27 +104,27 @@
       "vram_gb": 31.8,
       "fp16_tflops": 209.5,
       "mem_bw_gbs": 1792,
-      "vast_min_dph": 0.547,
-      "vast_median_dph": 0.842,
+      "vast_min_dph": 0.614,
+      "vast_median_dph": 0.625,
       "runpod_dph": 0.89,
       "lambda_dph": 1.1,
       "gcp_dph": 2.2,
       "aws_dph": 2.4,
-      "savings_vs_aws_pct": 77.2,
-      "verified_nodes_sampled": 4
+      "savings_vs_aws_pct": 74.4,
+      "verified_nodes_sampled": 3
     },
     {
       "gpu": "RTX 4090",
       "vram_gb": 24.0,
       "fp16_tflops": 165.2,
       "mem_bw_gbs": 1008,
-      "vast_min_dph": 0.404,
-      "vast_median_dph": 0.405,
+      "vast_min_dph": 0.482,
+      "vast_median_dph": 0.508,
       "runpod_dph": 0.59,
       "lambda_dph": 0.79,
       "gcp_dph": 1.8,
       "aws_dph": 1.95,
-      "savings_vs_aws_pct": 79.3,
+      "savings_vs_aws_pct": 75.3,
       "verified_nodes_sampled": 3
     },
     {
@@ -133,13 +133,13 @@
       "fp16_tflops": 71.0,
       "mem_bw_gbs": 936,
       "vast_min_dph": 0.183,
-      "vast_median_dph": 0.188,
+      "vast_median_dph": 0.25,
       "runpod_dph": 0.34,
       "lambda_dph": 0.49,
       "gcp_dph": 1.35,
       "aws_dph": 1.45,
       "savings_vs_aws_pct": 87.4,
-      "verified_nodes_sampled": 3
+      "verified_nodes_sampled": 2
     }
   ],
   "scraping_benchmarks": [
