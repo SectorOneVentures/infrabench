@@ -10,4 +10,14 @@
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://sectoroneventures.github.io/infrabench/ollama-private-server-guide.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sectoroneventures.github.io/infrabench/comfyui-flux-wan21-gpu-guide.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.9</priority>
+  </url>
 </urlset>

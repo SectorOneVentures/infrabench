@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Run Your Own Private Ollama + Open WebUI Server for $0.18/hr — InfraBench</title>
+  <meta name="description" content="Simple step-by-step guide to running a private Ollama server on a rented RTX 3090 ($0.18/hr) or RTX 4090 ($0.48/hr) using a 1-click container template.">
+  <style>
+    :root {
+      --bg-primary: #0b0f17;
+      --bg-card: #111827;
+      --border-subtle: #26334d;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent-color: #3b82f6;
+      --emerald: #10b981;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg-primary); color: var(--text-primary); font-family: var(--font-sans); line-height: 1.6; }
+    .container { max-width: 960px; margin: 0 auto; padding: 2rem 1.25rem; }
+    a { color: var(--accent-color); text-decoration: none; }
+    .panel { background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border-subtle); }
+    .mono { font-family: var(--font-mono); }
+    .cta-btn { display: inline-block; background: var(--emerald); color: #052e16; font-weight: 700; padding: 0.5rem 1rem; border-radius: 6px; text-decoration: none; }
+    .code-box { background: #070a10; border: 1px solid var(--border-subtle); border-radius: 8px; padding: 1rem; font-family: var(--font-mono); overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p><a href="./index.html">← Back to InfraBench GPU Memory Calculator</a></p>
+    <h1>Run Your Own Private Ollama Server for $0.18/hr</h1>
+    <p style="color: var(--text-secondary);">
+      You don't need to buy an expensive desktop GPU just to run 32B or 70B models privately. You can rent a 24GB or 48GB GPU by the hour, run your models, and shut it off when you're done.
+    </p>
+
+    <div class="panel">
+      <h2>Which GPU Should You Pick?</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Models You Want to Run</th>
+            <th>Memory Needed</th>
+            <th>Best Card to Rent</th>
+            <th>Live Price</th>
+            <th>1-Click Launch</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>8B &amp; 14B Models</strong> (Llama 3.1 8B, Qwen 2.5 14B)</td>
+            <td class="mono">9 GB – 14 GB</td>
+            <td class="mono">1x RTX 3090 (24GB)</td>
+            <td class="mono" style="color: var(--emerald); font-weight: 700;">$0.18/hr</td>
+            <td><a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=a157e8865a334938872f9e1bbcc1573a" target="_blank" rel="noopener">Start Ollama →</a></td>
+          </tr>
+          <tr>
+            <td><strong>32B Models</strong> (DeepSeek-R1 32B, Qwen Coder 32B)</td>
+            <td class="mono">22 GB</td>
+            <td class="mono">1x RTX 4090 (24GB)</td>
+            <td class="mono" style="color: var(--emerald); font-weight: 700;">$0.48/hr</td>
+            <td><a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=a157e8865a334938872f9e1bbcc1573a" target="_blank" rel="noopener">Start Ollama →</a></td>
+          </tr>
+          <tr>
+            <td><strong>70B Models</strong> (Llama 3.3 70B, DeepSeek-R1 70B)</td>
+            <td class="mono">45 GB</td>
+            <td class="mono">1x L40S (48GB)</td>
+            <td class="mono" style="color: var(--emerald); font-weight: 700;">$0.54/hr</td>
+            <td><a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=a157e8865a334938872f9e1bbcc1573a" target="_blank" rel="noopener">Start Ollama →</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>How to Start It in 60 Seconds</h2>
+      <ol>
+        <li>Click the <strong><a href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=a157e8865a334938872f9e1bbcc1573a" target="_blank" rel="noopener">1-Click Ollama Template on Vast.ai</a></strong>.</li>
+        <li>Pick an <strong>RTX 3090</strong> ($0.18/hr) or <strong>RTX 4090</strong> ($0.48/hr) and click Rent.</li>
+        <li>Open the terminal once it boots and run:</li>
+      </ol>
+      <pre class="code-box">ollama run qwen2.5-coder:32b</pre>
+    </div>
+  </div>
+</body>
+</html>
