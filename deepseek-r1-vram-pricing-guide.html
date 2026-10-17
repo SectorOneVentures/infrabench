@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DeepSeek-R1 &amp; Qwen-2.5 72B GPU VRAM Requirements &amp; Cloud $/hr Benchmarks — InfraBench</title>
+  <meta name="description" content="Exact VRAM memory breakdown, KV-cache sizing, and live hourly GPU cloud pricing (RTX 4090, RTX 5090, L40S, A100, H100, H200) for serving DeepSeek-R1 32B, 70B, and 671B with vLLM or SGLang.">
+  <style>
+    :root {
+      --bg-primary: #0b0f17;
+      --bg-card: #111827;
+      --bg-elevated: #1e293b;
+      --border-subtle: #26334d;
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --accent-color: #3b82f6;
+      --emerald: #10b981;
+      --emerald-bg: rgba(16, 185, 129, 0.12);
+      --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+    }
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2rem 1.25rem;
+    }
+    a { color: var(--accent-color); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      margin-top: 1rem;
+    }
+    th, td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    th {
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+    }
+    .mono { font-family: var(--font-mono); }
+    .cta-btn {
+      display: inline-block;
+      background: var(--emerald);
+      color: #052e16;
+      font-weight: 700;
+      padding: 0.45rem 0.9rem;
+      border-radius: 6px;
+      font-size: 0.82rem;
+      text-decoration: none;
+    }
+    .code-box {
+      background: #070a10;
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      overflow-x: auto;
+      color: #e2e8f0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <p><a href="./index.html">← Back to InfraBench Interactive GPU Calculator</a></p>
+    <h1>DeepSeek-R1 &amp; Qwen-2.5 (32B / 70B / 671B) GPU VRAM Sizing &amp; Cloud Cost Guide</h1>
+    <p style="color: var(--text-secondary);">
+      Verified hardware topologies, KV-cache memory budgets, and 1-click container templates for deploying DeepSeek-R1 Distill (32B/70B) and full 671B MoE weights on spot and on-demand GPU instances.
+    </p>
+
+    <div class="panel">
+      <h2>Hardware Fit &amp; Live Hourly Cost Matrix</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Model Variant</th>
+            <th>Quantization</th>
+            <th>32k Context VRAM</th>
+            <th>Recommended GPU Topology</th>
+            <th>Verified Vast.ai $/hr</th>
+            <th>AWS On-Demand Eq.</th>
+            <th>1-Click Launch</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>DeepSeek-R1-Distill-Qwen-32B</strong></td>
+            <td class="mono">AWQ / INT4 (4.5-bit)</td>
+            <td class="mono">22.4 GB</td>
+            <td class="mono">1x RTX 4090 (24GB) or 1x RTX 5090 (32GB)</td>
+            <td class="mono" style="color: var(--emerald); font-weight: 700;">$0.35/hr</td>
+            <td class="mono">$1.95/hr</td>
+            <td><a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=f702973989cc33171c27cf3db6d5a545" target="_blank" rel="noopener">Deploy 32B vLLM →</a></td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek-R1-Distill-Llama-70B</strong></td>
+            <td class="mono">AWQ / INT4 + FP8 KV</td>
+            <td class="mono">46.8 GB</td>
+            <td class="mono">1x L40S (48GB) or 2x RTX 4090 (48GB)</td>
+            <td class="mono" style="color: var(--emerald); font-weight: 700;">$0.46/hr</td>
+            <td class="mono">$2.85/hr</td>
+            <td><a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=5bdd3dd59970ee8c778a596bad88b6ee" target="_blank" rel="noopener">Deploy 70B SGLang →</a></td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek-R1-Distill-Llama-70B</strong></td>
+            <td class="mono">FP8 Native (8-bit)</td>
+            <td class="mono">78.2 GB</td>
+            <td class="mono">1x A100 SXM4 (80GB) or 1x H100 SXM (80GB)</td>
+            <td class="mono" style="color: var(--emerald); font-weight: 700;">$0.85/hr</td>
+            <td class="mono">$4.10/hr</td>
+            <td><a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=5bdd3dd59970ee8c778a596bad88b6ee" target="_blank" rel="noopener">Deploy FP8 Node →</a></td>
+          </tr>
+          <tr>
+            <td><strong>DeepSeek-R1-671B-MoE</strong></td>
+            <td class="mono">INT4 / AWQ Dynamic</td>
+            <td class="mono">412.0 GB</td>
+            <td class="mono">4x H200 (564GB) or 8x A100 (640GB)</td>
+            <td class="mono" style="color: var(--emerald); font-weight: 700;">$6.80/hr</td>
+            <td class="mono">$32.80/hr</td>
+            <td><a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=5bdd3dd59970ee8c778a596bad88b6ee" target="_blank" rel="noopener">Provision Multi-GPU →</a></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="panel">
+      <h2>Production SGLang Launch Command (FP8 KV-Cache Enabled)</h2>
+      <pre class="code-box">docker run --gpus all --shm-size 16g -p 8000:8000 lmsysorg/sglang:latest \
+  python3 -m sglang.launch_server \
+  --model-path deepseek-ai/DeepSeek-R1-Distill-Llama-70B \
+  --tp 2 \
+  --kv-cache-dtype fp8_e5m2 \
+  --context-length 32768 \
+  --host 0.0.0.0 --port 8000</pre>
+      <p style="margin-top: 1rem;">
+        <a class="cta-btn" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=5bdd3dd59970ee8c778a596bad88b6ee" target="_blank" rel="noopener">Launch Pre-Configured SGLang Template on Vast.ai →</a>
+      </p>
+    </div>
+  </div>
+</body>
+</html>
