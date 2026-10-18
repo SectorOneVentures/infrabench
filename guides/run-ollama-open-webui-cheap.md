@@ -1,11 +1,11 @@
-# How to Run a Private Ollama + Open WebUI Server for $0.18/hr
+# How to Run a Private Ollama + Open WebUI Server for $0.17/hr
 
 If you want to test big models (like DeepSeek-R1 32B/70B, Qwen 2.5 Coder, or Llama 3.3) privately without buying a $2,000 graphics card or paying monthly subscriptions, renting an hourly GPU box is super cheap as long as you turn it off when you're done.
 
 Right now on **[Vast.ai](https://cloud.vast.ai/?ref_id=749467)**:
-* **RTX 3090 (24GB VRAM):** ~**$0.18/hr** (runs 8B, 14B, and 32B 4-bit models easily)
-* **RTX 4090 (24GB VRAM):** ~**$0.46/hr** (almost twice as fast for coding models)
-* **L40S (48GB VRAM):** ~**$0.53/hr** (fits 70B models on a single card without splitting across GPUs)
+* **RTX 3090 (24GB VRAM):** ~**$0.17/hr** (runs 8B, 14B, and 32B 4-bit models easily)
+* **RTX 4090 (24GB VRAM):** ~**$0.40/hr** (almost twice as fast for coding models)
+* **L40S (48GB VRAM):** ~**$0.47/hr** (fits 70B models on a single card without splitting across GPUs)
 
 ---
 
