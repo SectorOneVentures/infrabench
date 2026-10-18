@@ -593,7 +593,8 @@
         <div class="code-box" id="compose-code-box"></div>
         <div style="margin-top: 1rem; display: flex; gap: 0.75rem; flex-wrap: wrap;">
           <a class="cta-btn emerald" id="tco-vast-link" href="https://cloud.vast.ai/?ref_id=749467" target="_blank" rel="noopener">Provision GPU Host on Vast.ai →</a>
-          <a class="cta-btn" id="tco-vllm-link" href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=f702973989cc33171c27cf3db6d5a545" target="_blank" rel="noopener">Launch 1-Click vLLM Template →</a>
+          <a class="cta-btn" id="tco-apify-link" href="https://apify.com?fpr=infrabench7552" target="_blank" rel="noopener">Try Apify Cloud Actors ($5 Free) →</a>
+          <a class="cta-btn" id="tco-scrapingbee-link" href="https://www.scrapingbee.com?fpr=infrabench7552" target="_blank" rel="noopener">ScrapingBee API (1,000 Free Calls) →</a>
           <a class="cta-btn" id="tco-seo-link" href="https://www.digistore24.com/redir/676823/infrabench7552/" target="_blank" rel="noopener">FastSEOHub SERP &amp; Indexing Suite →</a>
           <a class="cta-btn" id="tco-n8n-link" href="https://www.checkout-ds24.com/redir/667670/infrabench7552/" target="_blank" rel="noopener">n8n Workflow Automation Blueprint →</a>
         </div>
@@ -601,14 +602,14 @@
     </section>
 
     <footer>
-      <div>InfraBench — Simple GPU Memory Calculator &amp; Daily Hourly Price Checks. <a href="./deepseek-r1-vram-pricing-guide.html" style="color: var(--emerald);">DeepSeek-R1 Sizing Guide →</a></div>
+      <div>InfraBench — Simple GPU Memory Calculator &amp; Daily Hourly Price Checks. <a href="./headless-scraper-benchmark.html" style="color: var(--emerald);">Headless Scraper Benchmark →</a> | <a href="./docker-vps-tco-estimator.html" style="color: var(--emerald);">Docker &amp; Cloud TCO Calculator →</a> | <a href="./deepseek-r1-vram-pricing-guide.html" style="color: var(--emerald);">DeepSeek-R1 Sizing Guide →</a></div>
       <div>CLI Script: <code>python3 cli.py</code> | Open-Source MIT License</div>
     </footer>
   </main>
 
   <script>
     const FALLBACK_DATA = {
-      updated_at_utc: "2026-10-17T08:13:00Z",
+      updated_at_utc: "2026-10-18T08:45:00Z",
       referral_links: {
         vast_ai: "https://cloud.vast.ai/?ref_id=749467",
         vast_template_vllm: "https://cloud.vast.ai/?ref_id=749467&template_id=f702973989cc33171c27cf3db6d5a545",
@@ -616,6 +617,8 @@
         vast_template_ollama: "https://cloud.vast.ai/?ref_id=749467&template_id=a157e8865a334938872f9e1bbcc1573a",
         vast_template_unsloth: "https://cloud.vast.ai/?ref_id=749467&template_id=2c8267748fc42b4cf6c75fe4200afb47",
         vast_template_comfyui: "https://cloud.vast.ai/?ref_id=749467&template_id=a703d9051cbf75e7464128527f7bfe6d",
+        apify: "https://apify.com?fpr=infrabench7552",
+        scrapingbee: "https://www.scrapingbee.com?fpr=infrabench7552",
         fastseohub: "https://www.digistore24.com/redir/676823/infrabench7552/",
         tubemagic_saas: "https://www.digistore24.com/redir/540531/infrabench7552/",
         funnelcockpit_saas: "https://www.digistore24.com/redir/98201/infrabench7552/",
@@ -636,6 +639,26 @@
         { gpu: "H200", vram_gb: 140.4, vast_min_dph: 4.203, runpod_dph: 3.59, aws_dph: 8.50 }
       ],
       scraping_benchmarks: [
+        {
+          provider_id: "apify",
+          name: "Apify Cloud Actors & Anti-Bot Crawlee Cluster",
+          category: "Managed Browser & Actor Cloud",
+          cost_per_10k_standard_usd: 1.35,
+          cost_per_10k_js_rendered_usd: 5.20,
+          cost_per_10k_antibot_usd: 14.90,
+          success_rate_antibot_pct: 99.1,
+          median_latency_ms: 880
+        },
+        {
+          provider_id: "scrapingbee",
+          name: "ScrapingBee Headless Chrome & Stealth Proxy API",
+          category: "Headless Scraping API",
+          cost_per_10k_standard_usd: 1.96,
+          cost_per_10k_js_rendered_usd: 6.80,
+          cost_per_10k_antibot_usd: 16.50,
+          success_rate_antibot_pct: 98.9,
+          median_latency_ms: 910
+        },
         {
           provider_id: "self_hosted_playwright",
           name: "Vast.ai Dedicated Worker Box (Playwright + vLLM Parser)",
@@ -811,7 +834,13 @@
 
         let url = links.vast_ai || "https://cloud.vast.ai/?ref_id=749467";
         let ctaLabel = "Deploy Cluster →";
-        if (s.provider_id === "fastseohub") {
+        if (s.provider_id === "apify") {
+          url = links.apify || "https://apify.com?fpr=infrabench7552";
+          ctaLabel = "Try Apify ($5 Free) →";
+        } else if (s.provider_id === "scrapingbee") {
+          url = links.scrapingbee || "https://www.scrapingbee.com?fpr=infrabench7552";
+          ctaLabel = "Try ScrapingBee (1k Free) →";
+        } else if (s.provider_id === "fastseohub") {
           url = links.fastseohub || "https://www.digistore24.com/redir/676823/infrabench7552/";
           ctaLabel = "Launch FastSEOHub →";
         } else if (s.provider_id === "n8n_automation") {
@@ -838,21 +867,23 @@
       `).join("");
 
       document.getElementById("scraper-code-box").textContent =
-`# Production Python async worker with vLLM structured extraction on Vast.ai
+`# Option 1: Apify Python SDK (Managed Headless Chrome + Residential Proxies)
+from apify_client import ApifyClient
+
+client = ApifyClient("YOUR_APIFY_TOKEN")
+run = client.actor("apify/website-content-crawler").call(
+    run_input={"startUrls": [{"url": "https://example.com"}], "maxCrawlPages": 50}
+)
+items = list(client.dataset(run["defaultDatasetId"]).iterate_items())
+
+# Option 2: ScrapingBee Single-Call Stealth Proxy & JS Rendering API
 import httpx
 
-async def extract_structured_page(target_url: str, vllm_endpoint: str) -> dict:
-    async with httpx.AsyncClient(timeout=30.0) as client:
-        page = await client.get(target_url)
-        resp = await client.post(
-            f"{vllm_endpoint}/v1/chat/completions",
-            json={
-                "model": "Qwen/Qwen2.5-72B-Instruct-AWQ",
-                "messages": [{"role": "user", "content": page.text[:16000]}],
-            },
-        )
-        resp.raise_for_status()
-        return resp.json()`;
+resp = httpx.get(
+    "https://app.scrapingbee.com/api/v1/",
+    params={"api_key": "YOUR_SCRAPINGBEE_KEY", "url": "https://example.com", "render_js": "true", "stealth_proxy": "true"},
+    timeout=30.0,
+)`;
     }
 
     function renderComposeStack() {

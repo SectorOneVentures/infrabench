@@ -1,8 +1,11 @@
-# InfraBench — Simple GPU Memory Calculator & Live Cloud GPU Prices
+# InfraBench — Simple GPU Memory Calculator, Web Scraping API Benchmarks & Cloud Cost Tools
 
-Live calculator: **[https://sectoroneventures.github.io/infrabench/](https://sectoroneventures.github.io/infrabench/)**
+Live calculators:
+* **GPU Memory & Hourly Price Calculator:** **[https://sectoroneventures.github.io/infrabench/](https://sectoroneventures.github.io/infrabench/)**
+* **Headless Browser & Scraping API Cost Calculator:** **[https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html](https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html)**
+* **Self-Hosted Docker vs. Cloud Scraper TCO Estimator:** **[https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html](https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html)**
 
-I got tired of guessing how much GPU memory I needed before renting a cloud box (or getting hit with out-of-memory errors once the context window filled up), so I put together this quick calculator and price comparison sheet.
+I got tired of guessing how much GPU memory I needed before renting a cloud box (or getting hit with unexpected proxy bills when running headless Chrome scrapers), so I put together these quick calculators and daily price sheets.
 
 ---
 
@@ -13,7 +16,10 @@ I got tired of guessing how much GPU memory I needed before renting a cloud box 
    - Tells you right away if a model fits on a single card (like an **RTX 3090 24GB**, **RTX 4090 24GB**, **RTX 5090 32GB**, or **L40S 48GB**) or if you need multiple GPUs (**A100 80GB**, **H100**, **H200**).
    - Pulls live hourly rental prices from **[Vast.ai](https://cloud.vast.ai/?ref_id=749467)** so you can see how much cheaper it is compared to RunPod or AWS.
 
-2. **1-Click Ready-to-Run GPU Templates (on Vast.ai)**
+2. **Compares Headless Browser & Anti-Bot Scraping APIs**
+   - Interactive monthly price and anti-bot bypass calculator comparing **[Apify](https://apify.com?fpr=infrabench7552)** ($5/mo free credit + 2,000+ ready-made actors), **[ScrapingBee](https://www.scrapingbee.com?fpr=infrabench7552)** (1,000 free API calls with stealth Chrome proxies), and self-hosted Playwright containers on **[Vast.ai](https://cloud.vast.ai/?ref_id=749467)**.
+
+3. **1-Click Ready-to-Run GPU Templates (on Vast.ai)**
    If you don't want to mess around with Docker flags and CUDA versions, you can launch these directly:
    - **[vLLM Server (FP8 Cache + AWQ Ready)](https://cloud.vast.ai/?ref_id=749467&template_id=f702973989cc33171c27cf3db6d5a545)**
    - **[DeepSeek-R1 & Qwen2.5-72B Fast SGLang Server](https://cloud.vast.ai/?ref_id=749467&template_id=5bdd3dd59970ee8c778a596bad88b6ee)**
@@ -21,7 +27,7 @@ I got tired of guessing how much GPU memory I needed before renting a cloud box 
    - **[Unsloth Fine-Tuning & QLoRA Notebook (CUDA 12.8)](https://cloud.vast.ai/?ref_id=749467&template_id=2c8267748fc42b4cf6c75fe4200afb47)**
    - **[ComfyUI Flux.1 Dev + Wan2.1 Video Studio](https://cloud.vast.ai/?ref_id=749467&template_id=a703d9051cbf75e7464128527f7bfe6d)**
 
-3. **Simple Command-Line Script (`cli.py`)**
+4. **Simple Command-Line Script (`cli.py`)**
    No extra packages needed — just run it with Python:
    ```bash
    python3 cli.py --params 70 --quant 4.5 --ctx 32768 --batch 4
@@ -41,12 +47,15 @@ I got tired of guessing how much GPU memory I needed before renting a cloud box 
 | **RTX PRO 6000** | 96 GB | **$1.11/hr** | $1.89/hr | $4.50/hr | **75.3%** |
 | **H100 SXM** | 80 GB | **$1.93/hr** | $2.69/hr | $6.88/hr | **71.9%** |
 
-### Quick Guides
-* **[DeepSeek-R1 & Qwen 72B Memory & GPU Price Guide](https://sectoroneventures.github.io/infrabench/deepseek-r1-vram-pricing-guide.html)**
+### Quick Links & Tools
+* **[Headless Browser & Scraping API Benchmark →](https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html)**
+* **[Docker vs. Cloud Scraper TCO Estimator →](https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html)**
+* **[DeepSeek-R1 & Qwen 72B Memory & GPU Price Guide →](https://sectoroneventures.github.io/infrabench/deepseek-r1-vram-pricing-guide.html)**
+* **[Apify Cloud Scrapers ($5/mo Free Credit) →](https://apify.com?fpr=infrabench7552)**
+* **[ScrapingBee Stealth Proxy API (1,000 Free Calls) →](https://www.scrapingbee.com?fpr=infrabench7552)**
 * **[Rent Verified GPUs on Vast.ai →](https://cloud.vast.ai/?ref_id=749467)**
 * **[FastSEOHub Search & Indexing Tool →](https://www.digistore24.com/redir/676823/infrabench7552/)**
 * **[n8n Self-Hosted Workflow Guide →](https://www.checkout-ds24.com/redir/667670/infrabench7552/)**
-* **[Tube Magic Video Automation Tool →](https://www.digistore24.com/redir/540531/infrabench7552/)**
 
 ---
 
