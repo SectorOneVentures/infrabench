@@ -263,6 +263,11 @@
       gap: 0.75rem;
     }
   </style>
+  <script id="seo-jsonld" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "Headless Browser & Anti-Bot Scraping API Cost Calculator (Apify vs. ScrapingBee vs. Playwright)", "applicationCategory": "DeveloperApplication", "operatingSystem": "Web, Linux, macOS, Windows", "url": "https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is Apify or ScrapingBee cheaper than self-hosting Playwright in Docker?", "acceptedAnswer": {"@type": "Answer", "text": "Under 250,000 pages per month, Apify ($5/mo free credit) and ScrapingBee (1,000 free API calls) are usually cheaper than paying for residential proxy bandwidth and maintaining headless Chrome containers."}}, {"@type": "Question", "name": "How do I scrape pages behind Cloudflare or DataDome without IP blocks?", "acceptedAnswer": {"@type": "Answer", "text": "Enable stealth residential proxies in ScrapingBee (stealth_proxy=True) or run Apify Crawlee actors with automatic residential proxy rotation."}}]}]}</script>
+  <meta id="seo-og-title" property="og:title" content="Headless Browser &amp; Anti-Bot Scraping API Cost Calculator (Apify vs. ScrapingBee vs. Playwright)">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
   <header>
@@ -488,5 +493,13 @@ print(r.status_code, len(r.text))`;
     document.getElementById("calc-form").addEventListener("input", updateTable);
     updateTable();
   </script>
+<section id="daily-market-faq" style="max-width:960px;margin:28px auto;padding:20px;background:#151c28;border:1px solid #263248;border-radius:12px;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
+  <h2 style="font-size:1.2rem;margin:0 0 12px;color:#f8fafc;">Frequently Asked Questions & Live Market Rates (2026-10-19)</h2>
+  <p style="margin:8px 0;"><strong>Q: Is Apify or ScrapingBee cheaper than self-hosting Playwright in Docker?</strong><br><span style="color:#94a3b8;">Under 250,000 pages per month, Apify ($5/mo free credit) and ScrapingBee (1,000 free API calls) are usually cheaper than paying for residential proxy bandwidth and maintaining headless Chrome containers.</span></p>
+  <p style="margin:8px 0;"><strong>Q: How do I scrape pages behind Cloudflare or DataDome without IP blocks?</strong><br><span style="color:#94a3b8;">Enable stealth residential proxies in ScrapingBee (stealth_proxy=True) or run Apify Crawlee actors with automatic residential proxy rotation.</span></p>
+  <div id="portfolio-ecosystem-links" style="margin-top:16px;padding-top:12px;border-top:1px solid #263248;font-size:0.88rem;color:#94a3b8;">
+    <strong>All Live Cost & Arbitrage Calculators:</strong> <a href="https://sectoroneventures.github.io/infrabench/" style="color:#38bdf8;text-decoration:none;font-weight:600;">InfraBench</a> | <a href="https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Headless Browser &amp; Anti-Bot Scraping API Cost Calculator (Apify vs. ScrapingBee vs. Playwright)</a> | <a href="https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Self-Hosted Docker VPS vs. Managed Cloud Scraper TCO Estimator</a> | <a href="https://sectoroneventures.github.io/whisper-price/" style="color:#38bdf8;text-decoration:none;font-weight:600;">WhisperPrice</a>
+  </div>
+</section><!-- /daily-market-faq -->
 </body>
 </html>

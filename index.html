@@ -356,6 +356,11 @@
       gap: 1rem;
     }
   </style>
+  <script id="seo-jsonld" type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": "SoftwareApplication", "name": "InfraBench \u2014 GPU Memory (VRAM) & Live Hourly Cloud Price Calculator", "applicationCategory": "DeveloperApplication", "operatingSystem": "Web, Linux, macOS, Windows", "url": "https://sectoroneventures.github.io/infrabench/", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "How much GPU memory (VRAM) do I need for 8B, 32B, and 70B models at 32k context?", "acceptedAnswer": {"@type": "Answer", "text": "At 32k context with 4-bit quantization: 8B needs ~8.5 GB (fits RTX 3090 24GB at $0.18/hr), 32B needs ~22.4 GB (fits RTX 4090 24GB at $0.49/hr), and 70B needs ~46.8 GB (fits L40S 48GB at $0.68/hr or A100 80GB at $0.63/hr)."}}, {"@type": "Question", "name": "Where can I launch pre-configured vLLM, Ollama, or ComfyUI GPU containers?", "acceptedAnswer": {"@type": "Answer", "text": "Use the 1-Click Vast.ai templates linked directly in the calculator table to boot vLLM, SGLang, Ollama + Open WebUI, Unsloth, or ComfyUI Flux.1 + Wan2.1 in under 60 seconds."}}]}]}</script>
+  <meta id="seo-og-title" property="og:title" content="InfraBench — GPU Memory (VRAM) &amp; Live Hourly Cloud Price Calculator">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sectoroneventures.github.io/infrabench/">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
   <header>
@@ -929,5 +934,13 @@ resp = httpx.get(
 
     loadLiveBenchmarks();
   </script>
+<section id="daily-market-faq" style="max-width:960px;margin:28px auto;padding:20px;background:#151c28;border:1px solid #263248;border-radius:12px;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
+  <h2 style="font-size:1.2rem;margin:0 0 12px;color:#f8fafc;">Frequently Asked Questions & Live Market Rates (2026-10-19)</h2>
+  <p style="margin:8px 0;"><strong>Q: How much GPU memory (VRAM) do I need for 8B, 32B, and 70B models at 32k context?</strong><br><span style="color:#94a3b8;">At 32k context with 4-bit quantization: 8B needs ~8.5 GB (fits RTX 3090 24GB at $0.18/hr), 32B needs ~22.4 GB (fits RTX 4090 24GB at $0.49/hr), and 70B needs ~46.8 GB (fits L40S 48GB at $0.68/hr or A100 80GB at $0.63/hr).</span></p>
+  <p style="margin:8px 0;"><strong>Q: Where can I launch pre-configured vLLM, Ollama, or ComfyUI GPU containers?</strong><br><span style="color:#94a3b8;">Use the 1-Click Vast.ai templates linked directly in the calculator table to boot vLLM, SGLang, Ollama + Open WebUI, Unsloth, or ComfyUI Flux.1 + Wan2.1 in under 60 seconds.</span></p>
+  <div id="portfolio-ecosystem-links" style="margin-top:16px;padding-top:12px;border-top:1px solid #263248;font-size:0.88rem;color:#94a3b8;">
+    <strong>All Live Cost & Arbitrage Calculators:</strong> <a href="https://sectoroneventures.github.io/infrabench/" style="color:#38bdf8;text-decoration:none;font-weight:600;">InfraBench</a> | <a href="https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Headless Browser &amp; Anti-Bot Scraping API Cost Calculator (Apify vs. ScrapingBee vs. Playwright)</a> | <a href="https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Self-Hosted Docker VPS vs. Managed Cloud Scraper TCO Estimator</a> | <a href="https://sectoroneventures.github.io/whisper-price/" style="color:#38bdf8;text-decoration:none;font-weight:600;">WhisperPrice</a>
+  </div>
+</section><!-- /daily-market-faq -->
 </body>
 </html>
