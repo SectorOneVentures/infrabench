@@ -10,11 +10,11 @@ I kept running into out-of-memory crashes whenever I turned up the context windo
 
 | Model Size | 4-bit (AWQ / Q4) Memory | 8-bit (FP8) Memory | Best Cheap GPU Setup | Current Hourly Price |
 | :--- | :--- | :--- | :--- | :--- |
-| **8B** (Llama 3.1 / Qwen 2.5) | ~8.5 GB | ~12.5 GB | 1x RTX 3090 (24GB) | **$0.18/hr** |
-| **14B** (Qwen 2.5 / Phi-4) | ~12.8 GB | ~19.4 GB | 1x RTX 3090 (24GB) | **$0.18/hr** |
-| **32B** (DeepSeek-R1 / Qwen Coder) | ~22.4 GB | ~38.0 GB | 1x RTX 4090 (24GB) or 1x RTX 5090 (32GB) | **$0.49/hr – $0.94/hr** |
-| **70B** (Llama 3.3 / DeepSeek-R1 70B) | ~46.8 GB | ~78.2 GB | 1x L40S (48GB) or 2x RTX 4090 (48GB) | **$0.68/hr** |
-| **123B** (Mistral Large 2) | ~76.0 GB | ~138.0 GB | 1x A100 (80GB) or 2x L40S (96GB) | **$0.63/hr** |
+| **8B** (Llama 3.1 / Qwen 2.5) | ~8.5 GB | ~12.5 GB | 1x RTX 3090 (24GB) | **$0.20/hr** |
+| **14B** (Qwen 2.5 / Phi-4) | ~12.8 GB | ~19.4 GB | 1x RTX 3090 (24GB) | **$0.20/hr** |
+| **32B** (DeepSeek-R1 / Qwen Coder) | ~22.4 GB | ~38.0 GB | 1x RTX 4090 (24GB) or 1x RTX 5090 (32GB) | **$0.43/hr – $0.73/hr** |
+| **70B** (Llama 3.3 / DeepSeek-R1 70B) | ~46.8 GB | ~78.2 GB | 1x L40S (48GB) or 2x RTX 4090 (48GB) | **$0.44/hr** |
+| **123B** (Mistral Large 2) | ~76.0 GB | ~138.0 GB | 1x A100 (80GB) or 2x L40S (96GB) | **$0.57/hr** |
 | **671B** (DeepSeek-R1 Full) | ~412.0 GB | ~710.0 GB | 8x A100 (640GB) or 8x H100 | **$2.00/hr/GPU** |
 
 ---
