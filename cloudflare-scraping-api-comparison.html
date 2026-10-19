@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scraping Protected Pages Without Getting Blocked: ScrapingBee vs. Apify Residential Proxies | InfraBench</title>
+  <meta name="description" content="Scraping Protected Pages Without Getting Blocked: ScrapingBee vs. Apify Residential Proxies — live hourly GPU and web scraping API cost breakdown.">
+  <link rel="canonical" href="https://sectoroneventures.github.io/infrabench/cloudflare-scraping-api-comparison.html">
+</head>
+<body style="background:#0f1117;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:840px;margin:0 auto;padding:32px 20px;">
+  <nav style="margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid #262b36;display:flex;gap:16px;flex-wrap:wrap;font-size:0.92rem;">
+    <a href="https://sectoroneventures.github.io/infrabench/" style="color:#38bdf8;text-decoration:none;font-weight:600;">GPU Memory Calculator</a>
+    <a href="https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Scraper Cost Calculator</a>
+    <a href="https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Docker vs. Cloud TCO</a>
+  </nav>
+  <main>
+    <h1 style='font-size:1.75rem;margin-bottom:14px;color:#f8fafc;'>Scraping Protected Pages Without Getting Blocked: ScrapingBee vs. Apify</h1>
+<p style='margin:12px 0;line-height:1.65;color:#cbd5e1;'>Standard datacenter IPs from AWS, DigitalOcean, or Hetzner get blocked almost immediately on e-commerce and directory pages that check TLS fingerprints and browser headers.</p>
+<p style='margin:12px 0;line-height:1.65;color:#cbd5e1;'>Use the interactive slider tool to compare what 10,000 to 1,000,000 protected requests cost per month:</p>
+<p style='margin:12px 0;line-height:1.65;color:#cbd5e1;'>👉 <strong>Headless Scraper &amp; Proxy Cost Calculator:</strong> <a href="https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html" style="color:#38bdf8;font-weight:600;text-decoration:none;">https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html</a></p>
+<hr style='border:0;border-top:1px solid #262b36;margin:24px 0;'>
+<h2 style='font-size:1.3rem;margin-top:24px;margin-bottom:10px;color:#e2e8f0;'>Success Rate &amp; Cost Breakdown (Heavy Anti-Bot Pages)</h2>
+<li style='margin:8px 0;line-height:1.6;'><strong><a href="https://www.scrapingbee.com?fpr=infrabench7552" style="color:#38bdf8;font-weight:600;text-decoration:none;">ScrapingBee Stealth Proxy Mode</a>:</strong> ~96% pass rate using a simple `GET` request with `stealth_proxy=True` and `render_js=True`. Great when you just want clean HTML back in Python or Node.js. Comes with <strong>1,000 free API credits</strong>.</li>
+<li style='margin:8px 0;line-height:1.6;'><strong><a href="https://apify.com?fpr=infrabench7552" style="color:#38bdf8;font-weight:600;text-decoration:none;">Apify Crawlee + Residential Proxy Pool</a>:</strong> ~97% pass rate when you need full multi-step Playwright interactions (clicking pagination, logging in, or waiting for dynamic tables). Includes <strong>$5 in free monthly platform usage</strong>.</li>
+<li style='margin:8px 0;line-height:1.6;'><strong><a href="https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html" style="color:#38bdf8;font-weight:600;text-decoration:none;">Self-Hosted Docker vs. Cloud TCO Calculator</a>:</strong> Check when maintaining your own browser containers stops making financial sense.</li>
+    <div style="margin-top:28px;padding:18px;background:#161b26;border:1px solid #2d3748;border-radius:10px;">
+      <strong>Run your own numbers:</strong>
+      <a href="https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html" style="color:#38bdf8;font-weight:700;margin-left:8px;">Open the Interactive Calculator &rarr;</a>
+    </div>
+  </main>
+</body>
+</html>
