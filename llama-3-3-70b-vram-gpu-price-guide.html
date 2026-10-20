@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How Much GPU Memory You Need for Llama 3.3 70B (4-Bit vs 8-Bit) and Cheapest Hourly GPUs | InfraBench</title>
+  <meta name="description" content="How Much GPU Memory You Need for Llama 3.3 70B (4-Bit vs 8-Bit) and Cheapest Hourly GPUs — live hourly GPU and web scraping API cost breakdown.">
+  <link rel="canonical" href="https://sectoroneventures.github.io/infrabench/llama-3-3-70b-vram-gpu-price-guide.html">
+</head>
+<body style="background:#0f1117;color:#e2e8f0;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;max-width:840px;margin:0 auto;padding:32px 20px;">
+  <nav style="margin-bottom:24px;padding-bottom:12px;border-bottom:1px solid #262b36;display:flex;gap:16px;flex-wrap:wrap;font-size:0.92rem;">
+    <a href="https://sectoroneventures.github.io/infrabench/" style="color:#38bdf8;text-decoration:none;font-weight:600;">GPU Memory Calculator</a>
+    <a href="https://sectoroneventures.github.io/infrabench/headless-scraper-benchmark.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Scraper Cost Calculator</a>
+    <a href="https://sectoroneventures.github.io/infrabench/docker-vps-tco-estimator.html" style="color:#38bdf8;text-decoration:none;font-weight:600;">Docker vs. Cloud TCO</a>
+  </nav>
+  <main>
+    <h1 style='font-size:1.75rem;margin-bottom:14px;color:#f8fafc;'>How Much GPU Memory You Need for Llama 3.3 70B (and Cheapest Hourly GPUs)</h1>
+<p style='margin:12px 0;line-height:1.65;color:#cbd5e1;'>Running <strong>Llama 3.3 70B Instruct</strong> on rented cloud GPUs is way cheaper than paying per-token API bills once you run batch jobs — as long as you pick a card that fits the weights plus your context window.</p>
+<p style='margin:12px 0;line-height:1.65;color:#cbd5e1;'>👉 <strong>Interactive VRAM &amp; Price Calculator:</strong> <a href="https://sectoroneventures.github.io/infrabench/" style="color:#38bdf8;font-weight:600;text-decoration:none;">https://sectoroneventures.github.io/infrabench/</a></p>
+<hr style='border:0;border-top:1px solid #262b36;margin:24px 0;'>
+<h2 style='font-size:1.3rem;margin-top:24px;margin-bottom:10px;color:#e2e8f0;'>Memory Needed at 32k Context Window</h2>
+<li style='margin:8px 0;line-height:1.6;'><strong>4-Bit Quantized (AWQ / GGUF Q4_K_M):</strong> Needs <strong>~46.8 GB VRAM</strong> total.</li>
+<li style='margin:8px 0;line-height:1.6;'><strong>Cheapest single card:</strong> Rent 1x <strong>L40S (48GB)</strong> on <strong><a href="https://cloud.vast.ai/?ref_id=749467" style="color:#38bdf8;font-weight:600;text-decoration:none;">Vast.ai</a></strong> for <strong>$0.60/hr</strong>.</li>
+<li style='margin:8px 0;line-height:1.6;'><strong>Cheapest dual-card setup:</strong> Rent 2x <strong>RTX 3090 (48GB total)</strong> for ~<strong>$0.38/hr</strong> or 2x <strong>RTX 4090 (48GB total)</strong> for ~<strong>$0.70/hr</strong>.</li>
+<li style='margin:8px 0;line-height:1.6;'><strong>8-Bit Quantized (FP8):</strong> Needs <strong>~78.2 GB VRAM</strong> total.</li>
+<li style='margin:8px 0;line-height:1.6;'><strong>Best card:</strong> Rent 1x <strong>A100 80GB</strong> on <strong><a href="https://cloud.vast.ai/?ref_id=749467" style="color:#38bdf8;font-weight:600;text-decoration:none;">Vast.ai</a></strong> for <strong>$0.63/hr</strong>.</li>
+<h3 style='font-size:1.1rem;margin-top:18px;margin-bottom:8px;color:#cbd5e1;'>Launch in 1 Click</h3>
+<li style='margin:8px 0;line-height:1.6;'><strong><a href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=f702973989cc33171c27cf3db6d5a545" style="color:#38bdf8;font-weight:600;text-decoration:none;">1-Click vLLM Server on Vast.ai</a></strong></li>
+<li style='margin:8px 0;line-height:1.6;'><strong><a href="https://cloud.vast.ai/?ref_id=749467&amp;template_id=a157e8865a334938872f9e1bbcc1573a" style="color:#38bdf8;font-weight:600;text-decoration:none;">1-Click Ollama + Open WebUI Server on Vast.ai</a></strong></li>
+    <div style="margin-top:28px;padding:18px;background:#161b26;border:1px solid #2d3748;border-radius:10px;">
+      <strong>Run your own numbers:</strong>
+      <a href="https://sectoroneventures.github.io/infrabench/" style="color:#38bdf8;font-weight:700;margin-left:8px;">Open the Interactive Calculator &rarr;</a>
+    </div>
+  </main>
+</body>
+</html>
