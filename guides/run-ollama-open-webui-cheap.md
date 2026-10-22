@@ -4,8 +4,8 @@ If you want to test big models (like DeepSeek-R1 32B/70B, Qwen 2.5 Coder, or Lla
 
 Right now on **[Vast.ai](https://cloud.vast.ai/?ref_id=749467)**:
 * **RTX 3090 (24GB VRAM):** ~**$0.20/hr** (runs 8B, 14B, and 32B 4-bit models easily)
-* **RTX 4090 (24GB VRAM):** ~**$0.69/hr** (almost twice as fast for coding models)
-* **L40S (48GB VRAM):** ~**$0.80/hr** (fits 70B models on a single card without splitting across GPUs)
+* **RTX 4090 (24GB VRAM):** ~**$0.44/hr** (almost twice as fast for coding models)
+* **L40S (48GB VRAM):** ~**$0.60/hr** (fits 70B models on a single card without splitting across GPUs)
 
 ---
 
