@@ -60,4 +60,9 @@
     <changefreq>daily</changefreq>
     <priority>0.85</priority>
   </url>
+  <url>
+    <loc>https://sectoroneventures.github.io/infrabench/wan21-video-generation-gpu-cost.html</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.85</priority>
+  </url>
 </urlset>
