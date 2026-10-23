@@ -8,7 +8,7 @@ When you run a coding model with a 32,000-token context window, your graphics ca
 
 ## 1. The 4-Bit Version (AWQ / Q4_K_M) — Best Value
 * **Total VRAM needed (at 32k context):** ~**22.4 GB** (with FP8 cache turned on)
-* **What card to rent:** Fits on a single **RTX 3090 (24GB)** for **$0.20/hr** or **RTX 4090 (24GB)** for **$0.46/hr**. If you want a bigger 64k context window without running out of memory, grab an **RTX 5090 (32GB)** for **$0.74/hr**.
+* **What card to rent:** Fits on a single **RTX 3090 (24GB)** for **$0.30/hr** or **RTX 4090 (24GB)** for **$0.44/hr**. If you want a bigger 64k context window without running out of memory, grab an **RTX 5090 (32GB)** for **$0.77/hr**.
 
 ## 2. The 8-Bit Version (FP8)
 * **Total VRAM needed (at 32k context):** ~**38.0 GB**
