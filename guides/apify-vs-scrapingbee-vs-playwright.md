@@ -14,7 +14,7 @@ I put together an interactive slider calculator to compare what you actually pay
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **[Apify Cloud Actors](https://apify.com?fpr=infrabench7552)** | ~$1.35 | ~$5.20 | ~$14.90 | **$5/mo free credit** | **[Try Apify Free →](https://apify.com?fpr=infrabench7552)** |
 | **[ScrapingBee API](https://www.scrapingbee.com?fpr=infrabench7552)** | ~$1.96 | ~$6.80 | ~$16.50 | **1,000 free calls** | **[Try ScrapingBee →](https://www.scrapingbee.com?fpr=infrabench7552)** |
-| **[Vast.ai Worker Box](https://cloud.vast.ai/?ref_id=749467)** | ~$1.20 | ~$4.80 | ~$14.50 | Pay per hour ($0.20/hr) | **[Rent Linux/GPU Box →](https://cloud.vast.ai/?ref_id=749467)** |
+| **[Vast.ai Worker Box](https://cloud.vast.ai/?ref_id=749467)** | ~$1.20 | ~$4.80 | ~$14.50 | Pay per hour ($0.25/hr) | **[Rent Linux/GPU Box →](https://cloud.vast.ai/?ref_id=749467)** |
 
 ---
 
@@ -22,4 +22,4 @@ I put together an interactive slider calculator to compare what you actually pay
 
 1. **Pick [Apify](https://apify.com?fpr=infrabench7552)** if you want ready-made scrapers (Google Maps, e-commerce, social pages) or want to run your own Playwright/Crawlee scripts in the cloud with rotating residential proxies already built in.
 2. **Pick [ScrapingBee](https://www.scrapingbee.com?fpr=infrabench7552)** if you don't want to manage browser scripts at all and just want a single HTTP GET endpoint that returns the rendered HTML past Cloudflare.
-3. **Pick [Vast.ai](https://cloud.vast.ai/?ref_id=749467)** if you're already running a local model server (like vLLM or Ollama) to parse HTML into JSON and want the cheapest raw hourly hardware (**$0.20/hr** for an RTX 3090 box).
+3. **Pick [Vast.ai](https://cloud.vast.ai/?ref_id=749467)** if you're already running a local model server (like vLLM or Ollama) to parse HTML into JSON and want the cheapest raw hourly hardware (**$0.25/hr** for an RTX 3090 box).
