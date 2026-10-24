@@ -4,9 +4,9 @@ If you're fine-tuning an 8B, 14B, or 70B model with QLoRA, **Unsloth** cuts memo
 
 ## Which GPU Should You Rent?
 
-* **For 8B or 14B QLoRA:** Grab a single **RTX 3090 (24GB)** for **$0.27/hr** or **RTX 4090 (24GB)** for **$0.40/hr**.
-* **For 32B QLoRA:** Grab a **RTX 5090 (32GB)** for **$0.80/hr** or **L40S (48GB)** for **$0.68/hr**.
-* **For 70B QLoRA:** Grab an **A100 80GB** for **$0.55/hr**.
+* **For 8B or 14B QLoRA:** Grab a single **RTX 3090 (24GB)** for **$0.16/hr** or **RTX 4090 (24GB)** for **$0.46/hr**.
+* **For 32B QLoRA:** Grab a **RTX 5090 (32GB)** for **$0.61/hr** or **L40S (48GB)** for **$0.68/hr**.
+* **For 70B QLoRA:** Grab an **A100 80GB** for **$0.34/hr**.
 
 ---
 
